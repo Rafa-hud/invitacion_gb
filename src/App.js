@@ -539,7 +539,7 @@ const LetterInvitation = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
+    }, 9000);
 
     return () => clearInterval(timer);
   }, [slides.length]);
