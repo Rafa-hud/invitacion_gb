@@ -388,80 +388,14 @@ const LetterInvitation = () => {
   const [roses, setRoses] = useState([]);
   const [sparkles, setSparkles] = useState([]);
 
-  // Actualizar tamaño de ventana
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    };
-
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Crear elementos decorativos
-  useEffect(() => {
-    const createDecorations = () => {
-      const isMobile = window.innerWidth < 480;
-      const newRoses = [];
-      const newSparkles = [];
-      
-      // Rosas
-      const roseCount = isMobile ? 8 : 15;
-      for (let i = 0; i < roseCount; i++) {
-        newRoses.push({
-          id: `rose-${i}`,
-          left: Math.random() * 100,
-          top: Math.random() * 100,
-          content: ['🌹', '🌸', '🌺', '🌷'][Math.floor(Math.random() * 4)],
-          size: `${20 + Math.random() * 30}px`,
-          opacity: Math.random() * 0.3 + 0.2,
-          delay: `${Math.random() * 5}s`,
-          duration: `${Math.random() * 4 + 6}s`
-        });
-      }
-      
-      // Destellos
-      const sparkleCount = isMobile ? 10 : 20;
-      for (let i = 0; i < sparkleCount; i++) {
-        newSparkles.push({
-          id: `sparkle-${i}`,
-          left: Math.random() * 100,
-          top: Math.random() * 100,
-          size: `${4 + Math.random() * 6}px`,
-          color: `rgba(255, ${180 + Math.random() * 75}, ${200 + Math.random() * 55}, ${0.6 + Math.random() * 0.4})`,
-          delay: `${Math.random() * 3}s`,
-          duration: `${Math.random() * 2 + 1.5}s`
-        });
-      }
-      
-      setRoses(newRoses);
-      setSparkles(newSparkles);
-    };
-
-    createDecorations();
-    window.addEventListener('resize', createDecorations);
-    return () => window.removeEventListener('resize', createDecorations);
-  }, []);
-
-  // Cambio automático de slides
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentSlide((prev) => (prev + 1) % slides.length);
-    }, 7000);
-
-    return () => clearInterval(timer);
-  }, []);
-
+  // Función handleCelebration DEFINIDA ANTES de usarse en slides
   const handleCelebration = () => {
     setShowConfetti(true);
     setShowCelebration(true);
     setTimeout(() => setShowCelebration(false), 4000);
   };
 
-  // Slides con formato de carta
+  // Slides con formato de carta - AHORA handleCelebration ya está definida
   const slides = [
     {
       content: (
@@ -475,7 +409,7 @@ const LetterInvitation = () => {
             <p className="emoji-big">🎉 🎂 🎈</p>
             <p>Con mucho cariño y alegría,</p>
             <p>quiero compartir este día tan especial</p>
-            <p></p>
+            <p>con toda mi familia</p>
           </LetterBody>
         </>
       )
@@ -543,6 +477,73 @@ const LetterInvitation = () => {
     }
   ];
 
+  // Actualizar tamaño de ventana
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Crear elementos decorativos
+  useEffect(() => {
+    const createDecorations = () => {
+      const isMobile = window.innerWidth < 480;
+      const newRoses = [];
+      const newSparkles = [];
+      
+      // Rosas
+      const roseCount = isMobile ? 8 : 15;
+      for (let i = 0; i < roseCount; i++) {
+        newRoses.push({
+          id: `rose-${i}`,
+          left: Math.random() * 100,
+          top: Math.random() * 100,
+          content: ['🌹', '🌸', '🌺', '🌷'][Math.floor(Math.random() * 4)],
+          size: `${20 + Math.random() * 30}px`,
+          opacity: Math.random() * 0.3 + 0.2,
+          delay: `${Math.random() * 5}s`,
+          duration: `${Math.random() * 4 + 6}s`
+        });
+      }
+      
+      // Destellos
+      const sparkleCount = isMobile ? 10 : 20;
+      for (let i = 0; i < sparkleCount; i++) {
+        newSparkles.push({
+          id: `sparkle-${i}`,
+          left: Math.random() * 100,
+          top: Math.random() * 100,
+          size: `${4 + Math.random() * 6}px`,
+          color: `rgba(255, ${180 + Math.random() * 75}, ${200 + Math.random() * 55}, ${0.6 + Math.random() * 0.4})`,
+          delay: `${Math.random() * 3}s`,
+          duration: `${Math.random() * 2 + 1.5}s`
+        });
+      }
+      
+      setRoses(newRoses);
+      setSparkles(newSparkles);
+    };
+
+    createDecorations();
+    window.addEventListener('resize', createDecorations);
+    return () => window.removeEventListener('resize', createDecorations);
+  }, []);
+
+  // Cambio automático de slides
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 7000);
+
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
   return (
     <Container>
       {/* Rosas decorativas */}
@@ -586,7 +587,7 @@ const LetterInvitation = () => {
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ duration: 0.5, type: "spring" }}
           >
-            ¡Gracias por venir!<br />
+            ¡Gracias por confirmar!<br />
             <span style={{ fontSize: '1.2rem' }}>Los esperamos mañana 🎉</span>
           </CelebrationMessage>
         )}
