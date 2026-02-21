@@ -403,7 +403,7 @@ const LetterInvitation = () => {
           <LetterDate>Sábado 21 de Febrero, 2026</LetterDate>
           <MainTitle>
             ¡TE INVITO A MI FIESTA!
-            <span>CASA DE MAMÁ GABY</span>
+            <span>CASA DE MINI</span>
           </MainTitle>
           <LetterBody>
             <p className="emoji-big">🎉 🎂 🎈</p>
@@ -433,7 +433,7 @@ const LetterInvitation = () => {
             <DetailRow>
               <span className="icon">📍</span>
               <span className="label">Lugar:</span>
-              <span className="value">Casa de Mamá Gaby</span>
+              <span className="value">Casa de MINI</span>
             </DetailRow>
             
           </InvitationDetails>
